@@ -12,7 +12,7 @@ BABEL_DEFAULT_LOCALE = 'es'
 
 LANGUAGES = {
     'es': {'flag': 'es', 'name': 'Spanish'},
-#     'en': {'flag':'gb', 'name':'English'},
+    'en': {'flag':'gb', 'name':'English'},
 #     'pt': {'flag':'pt', 'name':'Portuguese'},
 #     'de': {'flag':'de', 'name':'German'},
 #     'zh': {'flag':'cn', 'name':'Chinese'},
@@ -32,14 +32,14 @@ AUTH_ROLE_ADMIN = 'Admin'
 AUTH_ROLE_PUBLIC = 'Public'
 APP_NAME = 'Compañía'
 #APP_THEME = ''                  # default
-# APP_THEME = 'cerulean.css'      # COOL
+#APP_THEME = 'cerulean.css'      # COOL
 #APP_THEME = 'amelia.css'
 #APP_THEME = 'cosmo.css'
 #APP_THEME = 'cyborg.css'       # COOL
-#APP_THEME = 'flatly.css'
+APP_THEME = 'flatly.css'
 #APP_THEME = 'journal.css'
 #APP_THEME = 'readable.css'
 #APP_THEME = 'simplex.css'
 #APP_THEME = 'slate.css'          # COOL
 #APP_THEME = 'spacelab.css'      # NICE
-APP_THEME = 'united.css'
+#APP_THEME = 'united.css'

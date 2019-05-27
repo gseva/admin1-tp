@@ -27,6 +27,7 @@ class ProductoPubView(ModelView):
 
 class ProductoView(ModelView):
     datamodel = SQLAInterface(Producto)
+    list_columns = ['nombre', 'codigo_label', 'principio_activo']
 
 
 class PrincipioActivo(ModelView):
