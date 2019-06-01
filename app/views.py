@@ -19,7 +19,7 @@ class ProductoPubView(ModelView):
     search_columns = ['codigo', 'nombre', 'descripcion', 'principio_activo']
 
     show_fieldsets = [
-        ('Summary', {'fields': ['codigo_label', 'nombre', 'principio_activo',
+        ('Summary', {'fields': ['codigo_label', 'nombre', 'principio_activo', 'tamanio',
                                 'imagen_1_markup', 'imagen_2_markup', 'imagen_3_markup']}),
         ('Description', {'fields': ['description'], 'expanded': True}),
     ]
