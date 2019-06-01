@@ -45,6 +45,35 @@ class CustomRegisterUserDBView(RegisterUserDBView):
 class CustomSecurityManager(SecurityManager):
     registeruserdbview = CustomRegisterUserDBView
 
+    def register_views(self):
+        self.appbuilder.add_api(self.security_api)
+
+        if self.auth_user_registration:
+            self.registeruser_view = self.registeruserdbview()
+
+        self.appbuilder.add_view_no_menu(self.resetpasswordview())
+        self.appbuilder.add_view_no_menu(self.resetmypasswordview())
+        self.appbuilder.add_view_no_menu(self.userinfoeditview())
+
+        self.user_view = self.userdbmodelview
+        self.auth_view = self.authdbview()
+
+        self.appbuilder.add_view_no_menu(self.auth_view)
+
+        self.user_view = self.appbuilder.add_view(
+            self.user_view, "List Users",
+            icon="fa-user", label="List Users",
+            category="Security", category_icon="fa-cogs",
+            category_label='Security'
+        )
+
+        self.appbuilder.add_view(
+            self.userstatschartview,
+            "User's Statistics", icon="fa-bar-chart-o",
+            label="User's Statistics",
+            category="Security"
+        )
+
 
 app = Flask(__name__)
 app.config.from_object('config')
