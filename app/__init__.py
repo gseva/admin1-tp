@@ -6,6 +6,7 @@ from sqlalchemy.engine import Engine
 from sqlalchemy import event
 from config import basedir
 
+from flask_appbuilder import IndexView
 from flask_appbuilder.security.registerviews import RegisterUserDBView
 from flask_appbuilder.security.forms import RegisterUserDBForm
 from flask_appbuilder.security.sqla.manager import SecurityManager
@@ -50,18 +51,17 @@ class CustomSecurityManager(SecurityManager):
 
         if self.auth_user_registration:
             self.registeruser_view = self.registeruserdbview()
+            self.appbuilder.add_view_no_menu(self.registeruser_view)
 
         self.appbuilder.add_view_no_menu(self.resetpasswordview())
         self.appbuilder.add_view_no_menu(self.resetmypasswordview())
         self.appbuilder.add_view_no_menu(self.userinfoeditview())
 
-        self.user_view = self.userdbmodelview
         self.auth_view = self.authdbview()
-
         self.appbuilder.add_view_no_menu(self.auth_view)
 
         self.user_view = self.appbuilder.add_view(
-            self.user_view, "List Users",
+            self.userdbmodelview, "List Users",
             icon="fa-user", label="List Users",
             category="Security", category_icon="fa-cogs",
             category_label='Security'
@@ -75,10 +75,17 @@ class CustomSecurityManager(SecurityManager):
         )
 
 
+class CustomIndexView(IndexView):
+    index_template = 'custom_index.html'
+
+
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLA(app)
-appbuilder = AppBuilder(app, db.session, security_manager_class=CustomSecurityManager)
+appbuilder = AppBuilder(app, db.session,
+                        security_manager_class=CustomSecurityManager,
+                        base_template='custom_base.html',
+                        indexview=CustomIndexView)
 
 
 @event.listens_for(Engine, "connect")
