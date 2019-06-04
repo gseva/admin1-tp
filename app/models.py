@@ -25,7 +25,7 @@ class Product(Model):
     image_1 = Column(ImageColumn)
     image_2 = Column(ImageColumn)
     image_3 = Column(ImageColumn)
-    size = Column(Enum('70 ml', '100 ml', '150 ml', '250 ml'))
+    size = Column(Enum('70 ml', '100 ml', '150 ml', '250 ml', name='size'))
     principio_activo_id = Column(Integer, ForeignKey('principio_activo.id'), nullable=False)
     principio_activo = relationship('PrincipioActivo')
 

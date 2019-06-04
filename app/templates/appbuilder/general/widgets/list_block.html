@@ -26,7 +26,7 @@
                   {% set path = url_for(modelview_name + '.show',pk=pk) %}
                   {% set path = path | set_link_filters(filters) %}
 
-                  <a href="{{my_href}}" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip" title="{{_('Show record')}}">
+                  <a href="{{path}}" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip" title="{{_('Show record')}}">
                       <i class="fa fa-eye"></i>
                   </a>
               {% endif %}

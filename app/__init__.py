@@ -74,6 +74,8 @@ class CustomSecurityManager(SecurityManager):
             category="Security"
         )
 
+        self.appbuilder.add_view_no_menu(self.registerusermodelview)
+
 
 class CustomIndexView(IndexView):
     index_template = 'custom_index.html'
