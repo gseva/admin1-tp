@@ -65,7 +65,7 @@ appbuilder.security_cleanup()
 # Permisos predefinidos para el cliente
 client = appbuilder.sm.add_role('Client')
 for view_name in ['ResetMyPasswordView', 'ProductPubView', 'Our Products',
-                  'UserInfoEditView', 'UserDBModelView', 'StaticViews']:
+                  'UserInfoEditView', 'UserDBModelView', 'Help', 'Contact']:
     view = appbuilder.sm.find_view_menu(view_name)
     for perm in appbuilder.sm.find_permissions_view_menu(view):
         appbuilder.sm.add_permission_role(client, perm)
