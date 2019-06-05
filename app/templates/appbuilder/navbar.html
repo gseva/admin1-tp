@@ -1,6 +1,5 @@
 
 
-
 {% set menu = appbuilder.menu %}
 {% set languages = appbuilder.languages %}
 
@@ -14,7 +13,7 @@
             </button>
             {% if appbuilder.app_icon %}
                 <a class="navbar-brand" href="{{appbuilder.get_url_for_index}}">
-                <img src="{{appbuilder.app_icon}}" height="100%" width="auto">
+                <img src="{{appbuilder.get_url_for_index}}{{appbuilder.app_icon}}" height="100%" width="auto">
                 </a>
             {% else %}
                 <span class="navbar-brand">

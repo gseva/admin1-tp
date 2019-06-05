@@ -67,13 +67,6 @@ class CustomSecurityManager(SecurityManager):
             category_label='Security'
         )
 
-        self.appbuilder.add_view(
-            self.userstatschartview,
-            "User's Statistics", icon="fa-bar-chart-o",
-            label="User's Statistics",
-            category="Security"
-        )
-
         self.appbuilder.add_view_no_menu(self.registerusermodelview)
 
 

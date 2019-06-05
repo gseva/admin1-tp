@@ -1,4 +1,5 @@
 from .models import Product, PrincipioActivo
+from flask_appbuilder import expose, has_access
 from flask_appbuilder.views import ModelView, BaseView
 from flask_appbuilder.charts.views import ChartView
 from flask_appbuilder.models.sqla.interface import SQLAInterface
@@ -36,18 +37,35 @@ class PrincipioActivo(ModelView):
     list_columns = ['name', 'code']
 
 
+class StaticViews(BaseView):
+
+    @expose('/help/')
+    # @has_access
+    def help(self):
+        return self.render_template('help.html')
+
+    @expose('/contact/')
+    # @has_access
+    def contact(self):
+        return self.render_template('contact.html')
+
+
 db.create_all()
 
 appbuilder.add_view(ProductPubView, 'Our Products', icon='fa-list')
+appbuilder.add_view(StaticViews, 'Help', href='/staticviews/help/', icon='fa-info')
+appbuilder.add_link('Contact', href='/staticviews/contact/')
 appbuilder.add_view(ProductView, 'Products', icon='fa-gear', category='Administer')
 appbuilder.add_separator('Administer')
 appbuilder.add_view(PrincipioActivo, 'Principios Activos', icon='fa-flask', category='Administer')
+
 
 appbuilder.security_cleanup()
 
 # Permisos predefinidos para el cliente
 client = appbuilder.sm.add_role('Client')
-for view_name in ['ResetMyPasswordView', 'ProductPubView', 'Our Products', 'UserInfoEditView', 'UserDBModelView']:
+for view_name in ['ResetMyPasswordView', 'ProductPubView', 'Our Products',
+                  'UserInfoEditView', 'UserDBModelView', 'StaticViews']:
     view = appbuilder.sm.find_view_menu(view_name)
     for perm in appbuilder.sm.find_permissions_view_menu(view):
         appbuilder.sm.add_permission_role(client, perm)
