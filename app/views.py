@@ -1,9 +1,16 @@
+from flask import flash
+
 from .models import Product, PrincipioActivo
 from flask_appbuilder import expose, has_access
-from flask_appbuilder.views import ModelView, BaseView
+from flask_appbuilder.views import ModelView, BaseView, SimpleFormView
 from flask_appbuilder.charts.views import ChartView
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder.widgets import ListBlock, ShowBlockWidget
+from flask_appbuilder.fieldwidgets import BS3TextFieldWidget, BS3TextAreaFieldWidget
+from flask_appbuilder.forms import DynamicForm
+
+from wtforms import StringField
+from wtforms.validators import DataRequired, Email
 
 from app import appbuilder, db
 
@@ -37,6 +44,28 @@ class PrincipioActivo(ModelView):
     list_columns = ['name', 'code']
 
 
+class ContactForm(DynamicForm):
+    email = StringField(('Email'), validators=[DataRequired(), Email()],
+        description=('Email we can use to contact you'),
+        widget=BS3TextFieldWidget())
+    name = StringField(('Name'), validators=[DataRequired()],
+        description=('Your name'), widget=BS3TextFieldWidget())
+    message = StringField(('Message'), validators=[DataRequired()],
+        description=('Your message'), widget=BS3TextAreaFieldWidget())
+
+
+class ContactFormView(SimpleFormView):
+    form = ContactForm
+    form_title = 'Please, leave us a message'
+
+    def form_get(self, form):
+        pass
+
+    def form_post(self, form):
+        # post process form
+        flash('Our administrator will be contacting you soon!', 'success')
+
+
 class StaticViews(BaseView):
 
     @expose('/help/')
@@ -44,17 +73,17 @@ class StaticViews(BaseView):
     def help(self):
         return self.render_template('help.html')
 
-    @expose('/contact/')
-    # @has_access
-    def contact(self):
-        return self.render_template('contact.html')
+    # @expose('/contact/')
+    # # @has_access
+    # def contact(self):
+    #     return self.render_template('contact.html')
 
 
 db.create_all()
 
 appbuilder.add_view(ProductPubView, 'Our Products', icon='fa-list')
 appbuilder.add_view(StaticViews, 'Help', href='/staticviews/help/', icon='fa-info')
-appbuilder.add_link('Contact', href='/staticviews/contact/')
+appbuilder.add_view(ContactFormView, 'Contact')
 appbuilder.add_view(ProductView, 'Products', icon='fa-gear', category='Administer')
 appbuilder.add_separator('Administer')
 appbuilder.add_view(PrincipioActivo, 'Principios Activos', icon='fa-flask', category='Administer')
