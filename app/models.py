@@ -40,7 +40,8 @@ class Product(Model):
         else:
             # return Markup('<a href="' + url_for('ProductPubView.show', pk=str(self.id)) +
             #               '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
-            return Markup('<center><img src="//:0" alt="Photo" class="img-responsive"></center>')
+            #return Markup('<center><img src="//:0" alt="Photo" class="img-responsive"></center>')
+            return ''
 
     def image_1_markup(self):
         return self._image('image_1')
@@ -56,6 +57,13 @@ class Product(Model):
 
     def __repr__(self):
         return self.name
+
+
+class Contact(Model):
+    id = Column(Integer, primary_key=True)
+    email = Column(String(), nullable=False)
+    name = Column(String())
+    message = Column(String())
 
 
 class Client(User):
