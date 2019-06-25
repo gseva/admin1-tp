@@ -64,9 +64,6 @@ class ContactFormView(SimpleFormView):
     form_title = ('If you have any questions or feedback, please feel free to'
                   'get in touch with us using the contact form below.')
 
-    def form_get(self, form):
-        pass
-
     def form_post(self, form):
         # post process form
         c = Contact(email=form.email.data, name=form.name.data, message=form.message.data)
@@ -106,7 +103,8 @@ appbuilder.security_cleanup()
 # Permisos predefinidos para el cliente
 client = appbuilder.sm.add_role('Client')
 for view_name in ['ResetMyPasswordView', 'ProductPubView', 'Our Products',
-                  'UserInfoEditView', 'UserDBModelView', 'Help', 'ContactFormView']:
+                  'UserInfoEditView', 'UserDBModelView', 'Help', 'Contact Us',
+                  'ContactFormView']:
     view = appbuilder.sm.find_view_menu(view_name)
     for perm in appbuilder.sm.find_permissions_view_menu(view):
         appbuilder.sm.add_permission_role(client, perm)
