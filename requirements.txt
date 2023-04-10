@@ -1,2 +1,2 @@
-Flask-AppBuilder==1.13.0
+Flask-AppBuilder==4.3.0
 Pillow==6.2.0
